@@ -1,0 +1,65 @@
+{
+    "user": [
+      {
+        "id": 10000,
+        "name": "张三",
+        "student_id": 2018214001,
+        "gender": "male"
+      },
+      {
+        "id": 10001,
+        "name": "李四",
+        "student_id": 2018214002,
+        "gender": "female"
+      },
+      {
+        "id": 10002,
+        "name": "王五",
+        "student_id": 2018214003,
+        "gender": "female"
+      },
+      {
+        "id": 10003,
+        "name": "麻六",
+        "student_id": 2018214004,
+        "gender": "male"
+      },
+      {
+        "id": 1004,
+        "name": "麻六",
+        "student_id": 2018214005,
+        "gender": "male"
+      }
+    ],
+    "book": [
+      {
+        "id": 10000,
+        "name": "JavaScript从入门到精通",
+        "price": 45,
+        "owner_id": 10000
+      },
+      {
+        "id": 10001,
+        "name": "Java从入门到放弃",
+        "price": 67,
+        "owner_id": 10001
+      },
+      {
+        "id": 10002,
+        "name": "PHP从入门到死亡",
+        "price": 89,
+        "owner_id": 10002
+      },
+      {
+        "id": 10003,
+        "name": "三天速成C++",
+        "price": 108,
+        "owner_id": 10003
+      },{
+        "id": 10004,
+        "name": "Mysql从删库到跑路",
+        "price": 68,
+        "owner_id": 10004
+      }
+    ]
+  }
