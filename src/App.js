@@ -9,21 +9,35 @@ import FileList from './components/FileList';
 import { BrowserRouter as Router ,Route } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker'; 
 
+import bookReducer from './reducers/bookReducer';
+import userReducer from './reducers/userReducer';
+import { createStore ,applyMiddleware ,combineReducers } from 'redux';
+import thunk from 'redux-thunk';
+// import {Provider} from 'react-redux';
+
+const rootReducer = combineReducers({
+    book :bookReducer,
+    user :userReducer
+});
+const store = createStore(rootReducer,applyMiddleware(thunk));
+
 class App extends React.Component{
+
     render (){
         return (
-            <Router>
+            <Router onEnter={store.dispatch(requestList())}>
                 <HomeLayout>
                     <div>
                         <Route path="/book/add" component={BookAdd}></Route>
                         <Route path="/book/list" component={BookList}></Route>
-                        <Route path="/user/add" compoennt={UserAdd}></Route>
-                        <Route path="/user/list" compoennt={UserList}></Route>
-                        <Route path="/file/add" compoennt={FileAdd}></Route>
-                        <Route path="/file/list" compoennt={FileList}></Route>
+                        <Route path="/user/add" component={UserAdd} ></Route>
+                        <Route path="/user/list" component={UserList}></Route>
+                        {/* <Route path="/file/add" component={FileAdd}></Route>
+                        <Route path="/file/list" component={FileList}></Route> */}
                     </div>
                 </HomeLayout>
             </Router>
+           
         );
     
     }

@@ -17,7 +17,6 @@ const columns = [{
 
 },{
     title:'操作',
-    key: 'action',
     render : (text,record) => (
         <span type="ghost">
             <Button size="small">编辑</Button>
@@ -51,7 +50,7 @@ class UserList extends React.Component{
     render(){
         const { userList } = this.state;
         return (
-            <Table columns={columns} dataSource={userList}/>
+            <Table columns={columns} dataSource={userList} rowKey="id"/>
         );
     }
 }
