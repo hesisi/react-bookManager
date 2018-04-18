@@ -1,6 +1,9 @@
 import React,{ Component } from 'react';
 import { Table ,Icon ,Button ,Popconfirm ,Divider} from 'antd';
 import PropTypes from 'prop-types';
+import {initBookAction} from "../actions/bookActions";
+import bookReducer from '../reducers/bookReducer';
+import userReducer from '../reducers/userReducer';
 
 
 class BookList extends React.Component{
@@ -20,10 +23,28 @@ class BookList extends React.Component{
         });
     }
 
-    render(){
+    // componentWillMount(){
+    //     const {store} = this.context;
+    //     fetch("http://localhost:8080/book")
+    //     .then(res => res.json())
+    //     .then(res => {
+    //         console.log("======bookList:"+JSON.stringify(res));
+    //         store.dispatch(initBookAction(res));
+    //     });
+    // }
+
+    componentWillMount(){
         const {store} = this.context;
-        const bookList = store.book;
-        console.log(JSON.stringify(store));
+        fetch("http://localhost:3001/book")
+        .then(res => res.json())
+        .then(res => {
+            console.log("======bookList:"+JSON.stringify(res));
+            store.dispatch(initBookAction(res));
+        });
+    }
+
+    render(){
+        const bookList = this.state.bookList;
 
         const columns = [{
             title : '图书编号',

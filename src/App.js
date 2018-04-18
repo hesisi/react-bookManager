@@ -1,4 +1,5 @@
-import React, { Component } from 'react'; import ReactDOM from 'react-dom'; 
+import React, { Component } from 'react'; 
+import ReactDOM from 'react-dom'; 
 import HomeLayout from './layouts/HomeLayout';
 import BookAdd from './components/BookAdd';
 import BookList from './components/BookList';
@@ -12,9 +13,10 @@ import registerServiceWorker from './registerServiceWorker';
 import bookReducer from './reducers/bookReducer';
 import userReducer from './reducers/userReducer';
 import { createStore ,applyMiddleware ,combineReducers } from 'redux';
+import './actions/bookActions';
 import thunk from 'redux-thunk';
-// import {Provider} from 'react-redux';
-
+import {Provider} from 'react-redux';
+ 
 const rootReducer = combineReducers({
     book :bookReducer,
     user :userReducer
@@ -22,22 +24,23 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer,applyMiddleware(thunk));
 
 class App extends React.Component{
-
     render (){
+        console.log("==========store的值:"+JSON.stringify(store));
         return (
-            <Router onEnter={store.dispatch(requestList())}>
-                <HomeLayout>
-                    <div>
-                        <Route path="/book/add" component={BookAdd}></Route>
-                        <Route path="/book/list" component={BookList}></Route>
-                        <Route path="/user/add" component={UserAdd} ></Route>
-                        <Route path="/user/list" component={UserList}></Route>
-                        {/* <Route path="/file/add" component={FileAdd}></Route>
-                        <Route path="/file/list" component={FileList}></Route> */}
-                    </div>
-                </HomeLayout>
-            </Router>
-           
+            <Provider store={store}>
+                <Router>
+                    <HomeLayout>
+                        <div>
+                            <Route path="/book/add" component={BookAdd}></Route>
+                            <Route path="/book/list" component={BookList}></Route>
+                            <Route path="/user/add" component={UserAdd} ></Route>
+                            <Route path="/user/list" component={UserList}></Route>
+                            {/* <Route path="/file/add" component={FileAdd}></Route>
+                            <Route path="/file/list" component={FileList}></Route> */}
+                        </div>
+                    </HomeLayout>
+                </Router>
+            </Provider>
         );
     
     }

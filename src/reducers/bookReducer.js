@@ -1,15 +1,15 @@
-function bookReducer(state=null,action){
+function bookReducer(book=null,action){
     switch(action.type){
-        case 'REQUEST_BOOK_LIST':
-            return action.payload
-        case 'ADDBOOK' : 
-            return Object.assign({},state,action.payload);
-        case 'UPDATEBOOK' :
-            return Object.assign({},state,action.payload);
-        case 'DELETEBOOK' :
-            return Object.assign({},state.filter(item => item.id !== action.payload.id));
+        case 'INIT_BOOK_ACTION':
+            console.log("reducer-book========:"+[...book,action.payload]);
+        case 'ADD_BOOK_ACTION' : 
+            return Object.assign({},book,action.payload);
+        case 'DELETE_BOOK_ACTION' :
+            return Object.assign({},book,action.payload);
+        case 'UPDATE_BOOK_ACTION' :
+            return Object.assign({},book.filter(item => item.id !== action.payload.id));
         default:
-            return state;
+            return book;
     }
 }
 
