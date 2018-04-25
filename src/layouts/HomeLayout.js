@@ -2,9 +2,6 @@ import React,{ Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 
-
-//const store = create(counter,applyMiddleware(ReduxThunk.default)); 
-
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
@@ -21,6 +18,7 @@ class HomeLayout extends React.Component{
                     <div className="logo">
                         <span style={{color:"#fff",fontSize:22,fontWeight:"bold"}}>BookManager</span>
                     </div>
+                    
                 </Header>
 
                 <Layout>

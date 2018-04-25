@@ -1,9 +1,11 @@
 import React,{ Component } from 'react';
-
+import Form from './Form';
 class BookAdd extends React.Component{
     render(){
         return (
-            <div>添加书籍</div>
+            <div>
+                <Form/>
+            </div>
         );
     }
 }

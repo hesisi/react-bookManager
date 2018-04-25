@@ -1,15 +1,36 @@
-function userReducer(user=[{id:"1",name:"user1"},{id:"2",name:"user1"},{id:"2",name:"user1"}],action){
+const initialState = {
+    data : []
+};
+
+function userReducer(state=initialState ,action){
     switch(action.type){
-        case 'REQUEST_USER_LIST':
-            return action.payload
-        case 'ADDUSER' : 
-            return Object.assign({},user,action.payload);
-        case 'UPDATEUSER' :
-            return Object.assign({},user,action.payload);
-        case 'DELETEUSER' :
-            return Object.assign({},user.filter(item => item.id !== action.payload.id));
+        case 'INIT_USER_ACTION':
+            return Object.assign({},state,{
+                data : [...action.payload]
+            });
+
+        case 'ADD_USER_ACTION' : 
+            return Object.assign({},state,{
+                data : state.data.push(action.payload)
+            });
+
+        case 'DELETE_USER_ACTION' :
+            return Object.assign({},state,{
+                data : state.data.filter(item => item.id != action.payload.id)
+            });
+
+        case 'UPDATE_USER_ACTION' :
+            return Object.assign({},state,{
+                data : state.data.map(item => {
+                    if(item.id == action.payload.id){
+                        return Object.assign({},item,action.payload);
+                    }else{
+                        return item;
+                    }
+                })
+            }); 
         default:
-            return user;
+            return state;
     }
 }
 
