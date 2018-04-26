@@ -5,6 +5,7 @@ const initialState = {
 function bookReducer(state=initialState ,action){
     switch(action.type){
         case 'INIT_BOOK_ACTION':
+            console.log("=====初始化bookReducer:"+JSON.stringify(state));
             return Object.assign({},state,{
                 data : [...action.payload]
             })

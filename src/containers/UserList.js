@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import UserList from '../components/UserList';
-import { deleteUserAction ,updateUserAction } from '../actions/userActions';
+import { deleteUserAction ,addUserAction ,updateUserAction } from '../actions/userActions';
 
 const mapStateToProps = (state) => {
     return {
@@ -12,6 +12,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         deleteUser : (id) => {
             dispatch(deleteUserAction(id))
+        },
+        addUser : (data) => {
+            dispatch(addUserAction(data))
         },
         editUser : (data) => {
             dispatch(updateUserAction(data))

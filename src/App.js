@@ -1,4 +1,4 @@
-import React, { Component } from 'react'; 
+import React from 'react'; 
 import ReactDOM from 'react-dom'; 
 import HomeLayout from './layouts/HomeLayout';
 
@@ -23,7 +23,7 @@ const rootReducer = combineReducers({
 });
 
 const store = createStore(rootReducer,applyMiddleware(thunk));
-
+console.log("====================store:"+JSON.stringify(store));
 
 {/*
     store的数据结构

@@ -1,4 +1,4 @@
-import React ,{ Component } from 'react';
+import React from 'react';
 import { Input ,Row ,Col ,Button } from 'antd'; 
 
 const Search = Input.Search;

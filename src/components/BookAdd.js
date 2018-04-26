@@ -1,4 +1,4 @@
-import React,{ Component } from 'react';
+import React from 'react';
 import Form from './Form';
 class BookAdd extends React.Component{
     render(){

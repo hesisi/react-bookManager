@@ -1,5 +1,5 @@
-import React,{ Component } from 'react';
-import { Table ,Icon ,Button ,Popconfirm ,Divider ,Modal} from 'antd';
+import React from 'react';
+import { Table ,Button ,Popconfirm ,Divider ,Modal} from 'antd';
 import {initBookAction} from "../actions/bookActions";
 import PropTypes from 'prop-types';
 import FormLayout from './Form';
@@ -23,7 +23,7 @@ class BookList extends React.Component{
         fetch("http://localhost:3001/book")
         .then(res => res.json())
         .then(res => {
-            console.log("======bookList:"+JSON.stringify(res));
+            console.log("========请求booklist："+JSON.stringify(res)); //一直都有返回参数
             store.dispatch(initBookAction(res));
         });
     }
@@ -59,7 +59,7 @@ class BookList extends React.Component{
         let { operation } = this.state;
         const { formData } = this.state;
 
-        if(operation == "edit"){
+        if(operation === "edit"){
             this.props.editBook(formData);
         }else{
             this.props.addBook(formData);
@@ -80,22 +80,20 @@ class BookList extends React.Component{
     render(){
         const { bookList, deleteBook } = this.props; //connect传递的props
         const { title,visible ,confirmLoading } = this.state;
-        console.log("===================props:"+JSON.stringify(this.props));
+        //console.log("===================booklist props:"+JSON.stringify(this.props));
         
         const columns = [{
             title : '图书编号',
             dataIndex : 'id'
         },{
             title : '名称',
-            dataIndex : 'name',
-            render : text => <a href="javascript:;">{text}</a>
+            dataIndex : 'name'
         },{
             title:'价格',
             dataIndex:'price'
         },{
             title:'借阅人编号',
-            dataIndex:'owner_id',
-            render : text => <a href="javascript:;">{text}</a>
+            dataIndex:'owner_id'
         },{
             title:'操作',
             render : (text,record) => (
@@ -114,7 +112,7 @@ class BookList extends React.Component{
                 <div>
                     <SearchInput addHandle={this.addHandle.bind(this)}/>
                 </div>
-                <Table columns={columns} dataSource={bookList} rowKey="id"/>
+                <Table columns={columns} dataSource={bookList}/>
                 <Modal 
                     title={title}
                     visible= {visible}
