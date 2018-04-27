@@ -10,7 +10,7 @@ class SearchInput extends React.Component{
                 <Row>
                     <Col span={10}>
                         <Search
-                            placeholder="输入关键字查询..."
+                            placeholder="输入编号查询..."
                             onSearch = {value => console.log(value)}
                             style={{ width:400 ,marginBottom :20}}
                             enterButton = "搜索"

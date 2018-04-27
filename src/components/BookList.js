@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table ,Button ,Popconfirm ,Divider ,Modal} from 'antd';
+import { Table, Button, Popconfirm, Divider, Modal, message} from 'antd';
 import {initBookAction} from "../actions/bookActions";
 import PropTypes from 'prop-types';
 import FormLayout from './Form';
@@ -23,7 +23,6 @@ class BookList extends React.Component{
         fetch("http://localhost:3001/book")
         .then(res => res.json())
         .then(res => {
-            console.log("========请求booklist："+JSON.stringify(res)); //一直都有返回参数
             store.dispatch(initBookAction(res));
         });
     }
@@ -36,8 +35,7 @@ class BookList extends React.Component{
             visible : true,
             formData : record,
             operation : "edit"   //编辑状态
-        });
-             
+        });     
     }
 
     //在子组件中点击添加需要调用的props函数
@@ -51,20 +49,30 @@ class BookList extends React.Component{
 
     //Form表单点击确定的时候要执行的props函数，动态获取Input组件的值
     comfirmHandle(data){
+        
+        //这个地方要注意setState是异步的，
+        //只有在重新render的时候state的值才会被重新修改
+        //所以通过回调函数解决
+
         this.setState({
             visible : false,
             formData : data
-        })
+        },() => {
+            let { operation } = this.state;
+            const { formData } = this.state;
+    
+            if(operation === "edit"){
+                this.props.editBook(formData);
+            }else{
+                this.props.addBook(formData);
+            }
 
-        let { operation } = this.state;
-        const { formData } = this.state;
-
-        if(operation === "edit"){
-            this.props.editBook(formData);
-        }else{
-            this.props.addBook(formData);
-        }
-        
+            //处理完之后再次置空
+            this.setState({
+                formData : {}
+            })
+            
+        })  
     }
 
     //取消
@@ -75,27 +83,29 @@ class BookList extends React.Component{
         });
     }
 
-    
-
     render(){
         const { bookList, deleteBook } = this.props; //connect传递的props
         const { title,visible ,confirmLoading } = this.state;
-        //console.log("===================booklist props:"+JSON.stringify(this.props));
         
         const columns = [{
             title : '图书编号',
-            dataIndex : 'id'
+            dataIndex : 'id',
+            key : 'id'
         },{
             title : '名称',
-            dataIndex : 'name'
+            dataIndex : 'name',
+            key : 'name'
         },{
             title:'价格',
-            dataIndex:'price'
+            dataIndex:'price',
+            key : 'price'
         },{
             title:'借阅人编号',
-            dataIndex:'owner_id'
+            dataIndex:'owner_id',
+            key : 'owner_id'
         },{
             title:'操作',
+            key : 'operation',
             render : (text,record) => (
                 <span type="ghost">
                     <Button size="small" onClick={() => this.editHandle(record)}>编辑</Button>
@@ -112,13 +122,14 @@ class BookList extends React.Component{
                 <div>
                     <SearchInput addHandle={this.addHandle.bind(this)}/>
                 </div>
-                <Table columns={columns} dataSource={bookList}/>
+                <Table columns={columns} dataSource={bookList} rowKey="id"/>
                 <Modal 
                     title={title}
                     visible= {visible}
                     confirmLoading = {confirmLoading}
-                    onCancel = {() => this.cancelHandle()}
+                    onCancel = {this.cancelHandle.bind(this)}
                     footer = {null}
+                    destroyOnClose
                 >
                     <FormLayout record={this.state.formData} comfirmHandle={this.comfirmHandle.bind(this)}/>
                 </Modal>

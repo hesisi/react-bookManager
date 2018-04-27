@@ -5,7 +5,6 @@ const initialState = {
 function userReducer(state=initialState ,action){
     switch(action.type){
         case 'INIT_USER_ACTION':
-            console.log("=====初始化userReducer:"+JSON.stringify(state));
             return Object.assign({},state,{
                 data : [...action.payload]
             });

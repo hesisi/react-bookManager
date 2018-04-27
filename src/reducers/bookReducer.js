@@ -5,14 +5,13 @@ const initialState = {
 function bookReducer(state=initialState ,action){
     switch(action.type){
         case 'INIT_BOOK_ACTION':
-            console.log("=====初始化bookReducer:"+JSON.stringify(state));
             return Object.assign({},state,{
                 data : [...action.payload]
             })
 
-        case 'ADD_BOOK_ACTION' : 
+        case 'ADD_BOOK_ACTION' :
             return Object.assign({},state,{
-                data : state.data.push(action.payload)
+                data : [...state.data,action.payload]
             })
 
         case 'DELETE_BOOK_ACTION' :
@@ -21,6 +20,7 @@ function bookReducer(state=initialState ,action){
             })
 
         case 'UPDATE_BOOK_ACTION' :
+            console.log("===========修改传递过来的参数:"+JSON.stringify(action.payload));
             return Object.assign({},state,{
                 data : state.data.map(item => {
                     if(item.id == action.payload.id){
