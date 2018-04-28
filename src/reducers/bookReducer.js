@@ -16,7 +16,7 @@ function bookReducer(state=initialState ,action){
 
         case 'DELETE_BOOK_ACTION' :
             return Object.assign({},state,{
-                data : state.data.filter(item => item.id != action.payload.id)
+                data : state.data.filter(item => item.id != action.payload)
             })
 
         case 'UPDATE_BOOK_ACTION' :

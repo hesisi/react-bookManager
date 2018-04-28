@@ -65,6 +65,7 @@ class BookList extends React.Component{
                 this.props.editBook(formData);
             }else{
                 this.props.addBook(formData);
+                //this.props.history.push("/book/list");                        
             }
 
             //处理完之后再次置空
@@ -110,7 +111,7 @@ class BookList extends React.Component{
                 <span type="ghost">
                     <Button size="small" onClick={() => this.editHandle(record)}>编辑</Button>
                     <Divider type="vertical" />
-                    <Popconfirm title="确定要删除吗？" onConfirm={() => deleteBook(record)}>
+                    <Popconfirm title="确定要删除吗？" onConfirm={() => deleteBook(record.id)}>
                         <Button size="small" >删除</Button>
                     </Popconfirm>
                 </span>
@@ -139,7 +140,8 @@ class BookList extends React.Component{
 }
 
 BookList.contextTypes = {
-    store: PropTypes.object.isRequired
+    store: PropTypes.object.isRequired,
+    router:PropTypes.object.isRequired
 };
 
 export default BookList;

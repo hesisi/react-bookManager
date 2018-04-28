@@ -33,10 +33,10 @@
   ],
   "book": [
     {
-      "id": 10000,
-      "name": "JavaScript从入门到精通",
-      "price": 45,
-      "owner_id": 10000
+      "name": "JavaScript从入门到精通——第二版",
+      "price": "45.00",
+      "owner_id": "10000",
+      "id": 10000
     },
     {
       "id": 10001,
@@ -73,6 +73,12 @@
       "price": "89.00",
       "owner_id": "10001",
       "id": 10006
+    },
+    {
+      "name": "Antd+dva",
+      "price": "65.00",
+      "owner_id": "10001",
+      "id": 10007
     }
   ]
 }

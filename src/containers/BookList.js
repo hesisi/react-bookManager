@@ -30,6 +30,7 @@ const mapDispatchToProps = (dispatch) => {
         },
         addBook : (data) => {
             //dispatch(addBookAction(data))
+
             dispatch(dispatch => {
                 fetch('http://localhost:3001/book',{
                     method : 'post',
@@ -46,7 +47,8 @@ const mapDispatchToProps = (dispatch) => {
                 .then(res => {
                     console.log("==============添加返回参数："+JSON.stringify(res));
                     dispatch(addBookAction(data))
-                    message.success("添加记录成功")
+                    //message.success("添加记录成功");
+                    window.location.reload();
                 })
                 .catch(error => {
                     message.error("添加记录失败")
@@ -56,9 +58,13 @@ const mapDispatchToProps = (dispatch) => {
         editBook : (data) => {
             //dispatch(updateBookAction(data))
             dispatch(dispatch => {
-                fetch('http://localhost:3001/book',{
+                fetch('http://localhost:3001/book/'+data.id,{
                     method : 'put',
-                    body : JSON.stringify(data),
+                    body : JSON.stringify({
+                        name : data.name,
+                        price : data.price,
+                        owner_id : data.owner_id
+                    }),
                     headers : {
                         'Content-Type' : 'application/json'
                     }
